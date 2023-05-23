@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discount Catalog - Checkout</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}">
+</head>
+<body>
+    <h1>Order Summary</h1>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Total Amount</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ quantities|get_item:product.id }}</td>
+            <td>${{ product.price|multiply:quantities|get_item:product.id }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">Subtotal:</td>
+            <td>${{ subtotal }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Discount Applied ({{ discount_rule }}):</td>
+            <td>${{ discount }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Shipping Fee:</td>
+            <td>${{ shipping_fee }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Gift Wrap Fee:</td>
+            <td>${{ gift_wrap_fee }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Total:</td>
+            <td>${{ total }}</td>
+        </tr>
+    </table>
+</body>
+</html>

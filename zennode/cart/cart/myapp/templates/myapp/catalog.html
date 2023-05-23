@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discount Catalog</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}">
+</head>
+<body>
+    <h1>Discount Catalog</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for product in products %}
+        <div class="product">
+            <h2>{{ product.name }}</h2>
+            <p>Price: ${{ product.price }}</p>
+            <label>Quantity:</label>
+            <input type="number" name="quantity_{{ product.id }}" min="0" required>
+            <label>Gift Wrap:</label>
+            <input type="checkbox" name="gift_wrap_{{ product.id }}">
+        </div>
+        {% endfor %}
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
